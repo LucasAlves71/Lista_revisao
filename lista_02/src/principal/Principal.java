@@ -9,10 +9,12 @@ public class Principal {
 
 	static CadastroAluno cadAluno;
 	static CadastroProfessores cadProfessor;
+	static CadastroDisciplina cadDisciplina;
 	
 	public static void main(String[] args) {
 		cadAluno = new CadastroAluno();
 		cadProfessor = new CadastroProfessores();
+		cadDisciplina = new CadastroDisciplina();
 		
 		int opcao = 0; 
 		
@@ -26,8 +28,7 @@ public class Principal {
 					MenuProfessor.menuProfessor(cadProfessor);
 				break;
 				case 3: 
-					
-					JOptionPane.showMessageDialog(null, "Cadastro de disciplinas a ser implementado");
+					MenuDisciplina.menuDisciplina(cadDisciplina);
 				break;
 				case 4: 
 					JOptionPane.showMessageDialog(null, "Cadastro de turmas a ser implementado");
@@ -42,6 +43,4 @@ public class Principal {
 		} while (opcao != 0);
 		return;
 	}
-
-
 }
