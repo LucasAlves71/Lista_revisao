@@ -1,23 +1,23 @@
 package view;
 
 import javax.swing.JOptionPane;
+
 import app.Professor;
 import cadastros.CadastroProfessores;
 
 public class MenuProfessor {
 
-
 	public static Professor dadosNovoProfessor() {
 		String nome = lerNome();
 		String cpf = lerCPF();
 		String email = lerEmail();
-		String matriculaFUB = lerMatricula(); 
-		String areaFormacao = lerCurso();
-		return new Professor(nome, cpf, email, matriculaFUB, areaFormacao);
+		String matriculaFUB = lerMatriculaFUB(); 
+		String areaDeFormacao = lerAreaDeFormacao();
+		return new Professor(nome, cpf, email, areaDeFormacao, matriculaFUB);
 	}
 
-	private static String lerCurso() {
-		return JOptionPane.showInputDialog("Informe a area de formação do professor: ");
+	private static String lerAreaDeFormacao() {
+		return JOptionPane.showInputDialog("Informe o area de formação do profesor: ");
 	}
 
 	private static String lerEmail() {
@@ -32,8 +32,8 @@ public class MenuProfessor {
 		return JOptionPane.showInputDialog("Informe o nome do professor: ");
 	}
 
-	private static String lerMatricula() {
-		return JOptionPane.showInputDialog("Informe a matricula do professor ");
+	private static String lerMatriculaFUB() {
+		return JOptionPane.showInputDialog("Informe a matricula do professor: ");
 	}
 
 	public static void menuProfessor(CadastroProfessores cadProfessor) {
@@ -56,14 +56,15 @@ public class MenuProfessor {
 				break;
 				
 			case 2: 
-				String matriculaFUB = lerMatricula();
+				String matriculaFUB = lerMatriculaFUB();
 				Professor p = cadProfessor.pesquisarProfessor(matriculaFUB);
-				if (p != null)
+				if (p != null) {
 					JOptionPane.showMessageDialog(null, p.toString());
+				}
 				break;
 				
 			case 3: 
-				matriculaFUB = lerMatricula(); 
+				matriculaFUB = lerMatriculaFUB(); 
 				Professor novoCadastro = dadosNovoProfessor();
 				boolean atualizado = cadProfessor.atualizarProfessor(matriculaFUB, novoCadastro);
 				if (atualizado) {
@@ -72,7 +73,7 @@ public class MenuProfessor {
 				break;
 				
 			case 4: 
-				matriculaFUB = lerMatricula();
+				matriculaFUB = lerMatriculaFUB();
 				Professor remover = cadProfessor.pesquisarProfessor(matriculaFUB);
 				boolean removido = cadProfessor.removerProfessor(remover);
 				if (removido) {

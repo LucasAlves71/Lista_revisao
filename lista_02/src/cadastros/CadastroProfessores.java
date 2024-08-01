@@ -1,76 +1,51 @@
 package cadastros;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import app.Professor;
 
 public class CadastroProfessores {
-	private int numProfessores;
-	private Professor[] professores;
+	int numProfessores; 
+	private List<Professor> professores;
 	
 	public CadastroProfessores() {
 		numProfessores = 0;
-		professores = new Professor[0];
+		professores = new ArrayList<Professor>();
 	}
 	
 	public int cadastrarProfessor(Professor p) {
-		Professor[] temp = new Professor[numProfessores + 1];
-		for (int i=0; i < professores.length; i++) {
-			temp[i] = professores[i];
+		boolean cadastrou = professores.add(p);
+		if (cadastrou) {
+			numProfessores = professores.size();
 		}
-		temp[temp.length -1] = p; 
-		professores = temp;
-		numProfessores++; 
 		return numProfessores;
 	}
 	
 	public Professor pesquisarProfessor(String matriculaFUB) {
-		Professor resposta =  null;
-		for (int i=0; i < professores.length; i++) {
-			Professor a = professores[i];
-			String mat = a.getMatriculaFUB(); 
-			if (mat.equalsIgnoreCase(matriculaFUB)) {
-				return professores[i];
+		for (Professor p : professores) {
+			if (p.getMatriculaFUB().equalsIgnoreCase(matriculaFUB)) {
+				return p;
 			}
 		}
-		return resposta;
+		return null;
 	}
 	
 	public boolean removerProfessor(Professor p) {
-		Professor remover = null; 
-		if (p != null)
-			remover = pesquisarProfessor(p.getMatriculaFUB());
-		
-		if (remover == null) {
-			return false;
-		} 
-		
-		Professor[] temp = new Professor[numProfessores - 1];
-		int j=0;
-		for (int i=0; i<numProfessores; i++) {
-			if (professores[i] != remover) {
-				temp[j] = professores[i];
-				j++;
-			} else {
-				professores[i] = null;
-			}
+		boolean removeu = false; 
+		if (professores.contains(p)) {
+			removeu = professores.remove(p);
 		}
-		professores= temp; 
-		numProfessores--;
-		return true;
+		return removeu;
 	}
 	
 	public boolean atualizarProfessor(String matriculaFUB, Professor p) {
-		int i;
-		for (i=0; i< 11; i++) {
-			if (professores[i].getMatriculaFUB().equalsIgnoreCase(matriculaFUB)) {
-				break;
-			}
+		boolean resposta = false;
+		Professor remover = pesquisarProfessor(matriculaFUB);
+		if (remover != null) {
+			professores.remove(remover);
+			resposta = professores.add(p);
 		}
-		if (i > numProfessores) {
-			return false;
-		} else {
-			professores[i] = p;
-		}
-		return true;
+		return resposta;
 	}
 }

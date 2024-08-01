@@ -58,8 +58,9 @@ public class MenuAluno {
 			case 2: 
 				String matricula = lerMatricula();
 				Aluno a = cadAluno.pesquisarAluno(matricula);
-				if (a != null)
+				if (a != null) {
 					JOptionPane.showMessageDialog(null, a.toString());
+				}
 				break;
 				
 			case 3: 
