@@ -69,7 +69,7 @@ public class MenuDisciplina {
 				Disciplina remover = cadDisciplina.pesquisarDisciplina(codigoDisciplina);
 				boolean removido = cadDisciplina.removerDisciplina(remover);
 				if (removido) {
-					JOptionPane.showMessageDialog(null, "Aluno removido do cadastro");
+					JOptionPane.showMessageDialog(null, "Disciplina removida do cadastro");
 					System.gc();
 				}
 
