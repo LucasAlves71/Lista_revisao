@@ -1,7 +1,12 @@
 package app;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 public class Turma {
     private String numDaTurma;
@@ -39,6 +44,24 @@ public class Turma {
     public void removerAluno(Aluno aluno) {
         alunos.remove(aluno);
     }
+    public void chamada(Date data) {
+    	StringBuilder mensagem = new StringBuilder();
+        mensagem.append("Disciplina: ").append(disciplina.getNomeDisciplina()).append("\n");
+        SimpleDateFormat formatoBrasileiro = new SimpleDateFormat("dd/MM/yyyy");
+        String dataFormatada = formatoBrasileiro.format(data);
+        mensagem.append("Data: ").append(dataFormatada).append("\n");
+        mensagem.append("Lista de Alunos:\n");
+
+        List<Aluno> alunosOrdenados = new ArrayList<>(alunos);
+        Collections.sort(alunosOrdenados, (a1, a2) -> a1.getNome().compareToIgnoreCase(a2.getNome()));
+
+        for (Aluno aluno : alunosOrdenados) {
+            mensagem.append("- ").append(aluno.getNome()).append("\n");
+        }
+
+        JOptionPane.showMessageDialog(null, mensagem.toString(), "Chamada da Turma", JOptionPane.INFORMATION_MESSAGE);
+    }
+
 
   
     public String toString() {

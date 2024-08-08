@@ -1,5 +1,7 @@
 package view;
 
+import java.util.Date;
+
 import javax.swing.JOptionPane;
 import app.*;
 import cadastros.*;
@@ -42,6 +44,7 @@ public class MenuTurma {
                 + "3 - Atualizar turma\n"
                 + "4 - Remover turma\n"
                 + "5 - Adicionar aluno à turma\n"
+                + "6 - Fazer chamada de turma\n"
                 + "0 - Voltar para menu anterior";
 
         int opcao = -1;
@@ -98,6 +101,18 @@ public class MenuTurma {
                         }
                     }
                     break;
+                    
+                 case 6:
+                	 String numDaTurma1 = lerNumDaTurma();
+                     Turma turma1 = cadTurma.pesquisarTurma(numDaTurma1);
+                     if (turma1 != null) {
+                         Date data = new Date();
+                         turma1.chamada(data);
+                     } else {
+                         JOptionPane.showMessageDialog(null, "Turma não encontrada.");
+                     }
+                     break;
+                	
 
                 default:
                     break;
