@@ -2,86 +2,85 @@ package view;
 
 import javax.swing.JOptionPane;
 
-
-import app.Turma;
-
-import cadastros.CadastroTurma;
+import app.*;
+import cadastros.*;
 
 public class MenuTurma {
 
-	public static Turma dadosNovaTurma() {
-		String disciplina = lerDisciplina();
-		String numTurma = lerNumTurma();
-		String professor = lerProfessor();
-		return new Turma(disciplina, numTurma, professor);
-	}
+    public static Turma dadosNovaTurma(Professor professor, Disciplina disciplina) {
+        String numDaTurma = lerNumDaTurma();
+        return new Turma(numDaTurma, professor, disciplina);
+    }
 
-	private static String lerDisciplina() {
-		return JOptionPane.showInputDialog("Informe a disciplina da turma: ");
-		
-	}
+    private static String lerNumDaTurma() {
+        return JOptionPane.showInputDialog("Informe o número da turma: ");
+    }
 
-	private static String lerProfessor() {
-		return JOptionPane.showInputDialog("Informe o professor da turma: ");
-	}
+    public static void menuTurma(CadastroTurma cadTurma, CadastroAluno cadAluno, Professor professor, Disciplina disciplina) {
+        String txt = "Informe a opção desejada \n"
+                + "1 - Cadastrar turma\n"
+                + "2 - Pesquisar turma\n"
+                + "3 - Atualizar turma\n"
+                + "4 - Remover turma\n"
+                + "5 - Adicionar aluno à turma\n"
+                + "0 - Voltar para menu anterior";
 
-	private static String lerNumTurma() {
-		return JOptionPane.showInputDialog("Informa o número da turma: ");
-	}
+        int opcao = -1;
+        do {
+            String strOpcao = JOptionPane.showInputDialog(txt);
+            opcao = Integer.parseInt(strOpcao);
 
-	
+            switch (opcao) {
+                case 1:
+                    Turma novaTurma = dadosNovaTurma(professor, disciplina);
+                    cadTurma.cadastrarTurma(novaTurma);
+                    break;
 
-	public static void menuTurma(CadastroTurma cadTurma) {
-		String txt = "Informe a opção desejada \n"
-				+ "1 - Cadastrar turma\n"
-				+ "2 - Pesquisar turma\n"
-				+ "3 - Atualizar turma\n"
-				+ "4 - Remover turma\n"
-				+ "0 - Voltar para menu anterior";
-		
-		int opcao=-1;
-		do {
-			String strOpcao = JOptionPane.showInputDialog(txt);
-			opcao = Integer.parseInt(strOpcao);
+                case 2:
+                    String numDaTurma = lerNumDaTurma();
+                    Turma turma = cadTurma.pesquisarTurma(numDaTurma);
+                    if (turma != null) {
+                        JOptionPane.showMessageDialog(null, turma.toString());
+                    }
+                    break;
 
-			switch (opcao) {
-			case 1:
-				Turma novaTurma = dadosNovaTurma();
-				cadTurma.cadastrarTurma(novaTurma);
-				break;
-				
-			case 2: 
-				String numTurma = lerNumTurma();
-				Turma t = cadTurma.pesquisarTurma(numTurma);
-				if (t != null) {
-					JOptionPane.showMessageDialog(null, t.toString());
-				}
-				break;
-				
-			case 3: 
-				numTurma = lerNumTurma(); 
-				Turma novoCadastro = dadosNovaTurma();
-				boolean atualizado = cadTurma.atualizarTurma(numTurma, novoCadastro);
-				if (atualizado) {
-					JOptionPane.showMessageDialog(null, "Cadastro atualizado.");
-				}
-				break;
-				
-			case 4: 
-				numTurma = lerNumTurma();
-				Turma remover = cadTurma.pesquisarTurma(numTurma);
-				boolean removido = cadTurma.removerTurma(remover);
-				if (removido) {
-					JOptionPane.showMessageDialog(null, "Turma removida do cadastro");
-					System.gc();
-				}
+                case 3:
+                    numDaTurma = lerNumDaTurma();
+                    Turma novaTurmaCadastro = dadosNovaTurma(professor, disciplina);
+                    boolean atualizado = cadTurma.atualizarTurma(numDaTurma, novaTurmaCadastro);
+                    if (atualizado) {
+                        JOptionPane.showMessageDialog(null, "Turma atualizada.");
+                    }
+                    break;
 
-			default:
-				break;
-			}
-		} while (opcao != 0);
-		return;
-	}
+                case 4:
+                    numDaTurma = lerNumDaTurma();
+                    Turma remover = cadTurma.pesquisarTurma(numDaTurma);
+                    boolean removido = cadTurma.removerTurma(remover);
+                    if (removido) {
+                        JOptionPane.showMessageDialog(null, "Turma removida do cadastro");
+                        System.gc();
+                    }
+                    break;
 
+                case 5:
+                    numDaTurma = lerNumDaTurma();
+                    turma = cadTurma.pesquisarTurma(numDaTurma);
+                    if (turma != null) {
+                        String matriculaAluno = JOptionPane.showInputDialog("Informe a matrícula do aluno para adicionar à turma: ");
+                        Aluno aluno = cadAluno.pesquisarAluno(matriculaAluno);
+                        if (aluno != null) {
+                            turma.adicionarAluno(aluno);
+                            JOptionPane.showMessageDialog(null, "Aluno adicionado à turma.");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Aluno não encontrado.");
+                        }
+                    }
+                    break;
 
+                default:
+                    break;
+            }
+        } while (opcao != 0);
+    }
 }

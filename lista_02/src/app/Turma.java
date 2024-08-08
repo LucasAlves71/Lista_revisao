@@ -1,37 +1,55 @@
 package app;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Turma {
-	String disciplinaDaTurma;
-	String professor;
-	Aluno aluno;
-	String numDaTurma;
+    private String numDaTurma;
+    private Professor professor;
+    private Disciplina disciplina;
+    private List<Aluno> alunos;
 
-	public Turma(String disciplinaDaTurma, String numDaTurma, String professor) {
-		this.disciplinaDaTurma = disciplinaDaTurma;
-		this.numDaTurma = numDaTurma;
-		this.professor = professor;
-		
-	}
+    public Turma(String numDaTurma, Professor professor, Disciplina disciplina) {
+        this.numDaTurma = numDaTurma;
+        this.professor = professor;
+        this.disciplina = disciplina;
+        this.alunos = new ArrayList<>();
+    }
 
-	public String getNumDaTurma() {
-		return numDaTurma;
-	}
+    public String getNumDaTurma() {
+        return numDaTurma;
+    }
 
-	public String getProfessor() {
-		return professor;
-	}
+    public Professor getProfessor() {
+        return professor;
+    }
 
-	public Aluno getAluno() {
-		return aluno;
-	}
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
 
-	public String toString() {
-		String resposta = super.toString() + '\n';
-		resposta += "Disciplina da turma: " + disciplinaDaTurma + '\n';
-		resposta += "Professor regente na turma: " + professor + '\n';
-		resposta += "Número da turma: " + numDaTurma + '\n';
-		return resposta;
-	}
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
 
-	
+    public void adicionarAluno(Aluno aluno) {
+        alunos.add(aluno);
+    }
+
+    public void removerAluno(Aluno aluno) {
+        alunos.remove(aluno);
+    }
+
+  
+    public String toString() {
+        StringBuilder info = new StringBuilder();
+        info.append("Número da Turma: ").append(numDaTurma).append("\n");
+        info.append("Professor: ").append(professor.getNome()).append("\n");
+        info.append("Disciplina: ").append(disciplina.getNomeDisciplina()).append("\n");
+        info.append("Alunos Matriculados: \n");
+        for (Aluno aluno : alunos) {
+            info.append(aluno.getNome()).append(" - ").append(aluno.getMatricula()).append("\n");
+        }
+        return info.toString();
+    }
 }
