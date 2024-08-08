@@ -1,14 +1,15 @@
 package view;
 
 import javax.swing.JOptionPane;
-
 import app.*;
 import cadastros.*;
 
 public class MenuTurma {
 
-    public static Turma dadosNovaTurma(Professor professor, Disciplina disciplina) {
+    public static Turma dadosNovaTurma(CadastroProfessores cadProfessor, CadastroDisciplina cadDisciplina) {
         String numDaTurma = lerNumDaTurma();
+        Professor professor = selecionarProfessor(cadProfessor);
+        Disciplina disciplina = selecionarDisciplina(cadDisciplina);
         return new Turma(numDaTurma, professor, disciplina);
     }
 
@@ -16,7 +17,25 @@ public class MenuTurma {
         return JOptionPane.showInputDialog("Informe o número da turma: ");
     }
 
-    public static void menuTurma(CadastroTurma cadTurma, CadastroAluno cadAluno, Professor professor, Disciplina disciplina) {
+    private static Professor selecionarProfessor(CadastroProfessores cadProfessor) {
+        String matProfessor = JOptionPane.showInputDialog("Informe o matrícula do professor: ");
+        Professor professor = cadProfessor.pesquisarProfessor(matProfessor);
+        if (professor == null) {
+            JOptionPane.showMessageDialog(null, "Professor não encontrado.");
+        }
+        return professor;
+    }
+
+    private static Disciplina selecionarDisciplina(CadastroDisciplina cadDisciplina) {
+        String codigoDisciplina = JOptionPane.showInputDialog("Informe o código da disciplina: ");
+        Disciplina disciplina = cadDisciplina.pesquisarDisciplina(codigoDisciplina);
+        if (disciplina == null) {
+            JOptionPane.showMessageDialog(null, "Disciplina não encontrada.");
+        }
+        return disciplina;
+    }
+
+    public static void menuTurma(CadastroTurma cadTurma, CadastroAluno cadAluno, CadastroProfessores cadProfessor, CadastroDisciplina cadDisciplina) {
         String txt = "Informe a opção desejada \n"
                 + "1 - Cadastrar turma\n"
                 + "2 - Pesquisar turma\n"
@@ -32,8 +51,10 @@ public class MenuTurma {
 
             switch (opcao) {
                 case 1:
-                    Turma novaTurma = dadosNovaTurma(professor, disciplina);
-                    cadTurma.cadastrarTurma(novaTurma);
+                    Turma novaTurma = dadosNovaTurma(cadProfessor, cadDisciplina);
+                    if (novaTurma != null) {
+                        cadTurma.cadastrarTurma(novaTurma);
+                    }
                     break;
 
                 case 2:
@@ -46,7 +67,7 @@ public class MenuTurma {
 
                 case 3:
                     numDaTurma = lerNumDaTurma();
-                    Turma novaTurmaCadastro = dadosNovaTurma(professor, disciplina);
+                    Turma novaTurmaCadastro = dadosNovaTurma(cadProfessor, cadDisciplina);
                     boolean atualizado = cadTurma.atualizarTurma(numDaTurma, novaTurmaCadastro);
                     if (atualizado) {
                         JOptionPane.showMessageDialog(null, "Turma atualizada.");

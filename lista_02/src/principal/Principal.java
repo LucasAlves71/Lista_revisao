@@ -1,7 +1,6 @@
 package principal;
 
 import javax.swing.JOptionPane;
-import app.*;
 import cadastros.*;
 import view.*;
 
@@ -33,9 +32,7 @@ public class Principal {
                     MenuDisciplina.menuDisciplina(cadDisciplina);
                     break;
                 case 4: 
-                    Professor professor = selecionarProfessor();
-                    Disciplina disciplina = selecionarDisciplina();
-                    MenuTurma.menuTurma(cadTurma, cadAluno, professor, disciplina);
+                    MenuTurma.menuTurma(cadTurma, cadAluno, cadProfessor, cadDisciplina);
                     break;
                 case 0: 
                     break;
@@ -45,23 +42,5 @@ public class Principal {
                     break;
             }
         } while (opcao != 0);
-    }
-
-    private static Professor selecionarProfessor() {
-        String matProfessor = JOptionPane.showInputDialog("Informe a matricula do professor: ");
-        Professor professor = cadProfessor.pesquisarProfessor(matProfessor);
-        if (professor == null) {
-            JOptionPane.showMessageDialog(null, "Professor não encontrado.");
-        }
-        return professor;
-    }
-
-    private static Disciplina selecionarDisciplina() {
-        String codigoDisciplina = JOptionPane.showInputDialog("Informe o código da disciplina: ");
-        Disciplina disciplina = cadDisciplina.pesquisarDisciplina(codigoDisciplina);
-        if (disciplina == null) {
-            JOptionPane.showMessageDialog(null, "Disciplina não encontrada.");
-        }
-        return disciplina;
     }
 }
