@@ -1,5 +1,8 @@
 package app;
 
+import exceptions.*;
+
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +22,23 @@ public class Turma {
         this.professor = professor;
         this.disciplina = disciplina;
         this.alunos = new ArrayList<>();
+    }
+
+    public static Turma criarTurma(String numDaTurma, Professor professor, Disciplina disciplina) throws CampoEmBrancoException, DisciplinaNaoAtribuidaException, ProfessorNaoAtribuidoException {
+
+        if (numDaTurma == null || numDaTurma.trim().isEmpty() || numDaTurma.isBlank()) {
+            throw new CampoEmBrancoException(" NÚMERO DA TURMA ");
+        }
+
+        if (professor == null) {
+            throw new ProfessorNaoAtribuidoException();
+        }
+
+        if (disciplina == null) {
+            throw new DisciplinaNaoAtribuidaException();
+        }
+
+        return new Turma(numDaTurma, professor, disciplina);
     }
 
     public String getNumDaTurma() {
@@ -45,9 +65,10 @@ public class Turma {
         alunos.remove(aluno);
     }
     public void chamada(Date data) {
-    	StringBuilder mensagem = new StringBuilder();
-    	mensagem.append("Disciplina: ").append(disciplina.getNomeDisciplina()).append("\n");
-    	mensagem.append("Turma: ").append(getNumDaTurma()).append("\n");
+        StringBuilder mensagem = new StringBuilder();
+        mensagem.append("Disciplina: ").append(disciplina.getNomeDisciplina()).append("\n");
+        mensagem.append("Turma: ").append(getNumDaTurma()).append("\n");
+        mensagem.append("Professor: ").append(professor.getNome()).append("\n");
         SimpleDateFormat formatoBrasileiro = new SimpleDateFormat("dd/MM/yyyy");
         String dataFormatada = formatoBrasileiro.format(data);
         mensagem.append("Data: ").append(dataFormatada).append("\n");
@@ -57,14 +78,14 @@ public class Turma {
         Collections.sort(alunosOrdenados, (a1, a2) -> a1.getNome().compareToIgnoreCase(a2.getNome()));
 
         for (Aluno aluno : alunosOrdenados) {
-        	mensagem.append("- ").append(aluno.getMatricula()).append(" - ").append(aluno.getNome()).append("\n");
+            mensagem.append(aluno.getMatricula()).append(" - ").append(aluno.getNome()).append("\n");
         }
 
         JOptionPane.showMessageDialog(null, mensagem.toString(), "Chamada da Turma", JOptionPane.INFORMATION_MESSAGE);
     }
 
 
-  
+
     public String toString() {
         StringBuilder info = new StringBuilder();
         info.append("Número da Turma: ").append(numDaTurma).append("\n");

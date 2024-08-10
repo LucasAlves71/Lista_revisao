@@ -3,6 +3,9 @@ package view;
 import java.util.Date;
 
 import javax.swing.JOptionPane;
+
+import exceptions.*;
+
 import app.*;
 import cadastros.*;
 
@@ -12,7 +15,21 @@ public class MenuTurma {
         String numDaTurma = lerNumDaTurma();
         Professor professor = selecionarProfessor(cadProfessor);
         Disciplina disciplina = selecionarDisciplina(cadDisciplina);
-        return new Turma(numDaTurma, professor, disciplina);
+
+        try {
+            return Turma.criarTurma(numDaTurma, professor, disciplina);
+        } catch (CampoEmBrancoException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            e.printStackTrace();
+        } catch (DisciplinaNaoAtribuidaException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            e.printStackTrace();
+        } catch (ProfessorNaoAtribuidoException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     private static String lerNumDaTurma() {
@@ -101,18 +118,18 @@ public class MenuTurma {
                         }
                     }
                     break;
-                    
-                 case 6:
-                	 String numDaTurma1 = lerNumDaTurma();
-                     Turma turma1 = cadTurma.pesquisarTurma(numDaTurma1);
-                     if (turma1 != null) {
-                         Date data = new Date();
-                         turma1.chamada(data);
-                     } else {
-                         JOptionPane.showMessageDialog(null, "Turma não encontrada.");
-                     }
-                     break;
-                	
+
+                case 6:
+                    String numDaTurma1 = lerNumDaTurma();
+                    Turma turma1 = cadTurma.pesquisarTurma(numDaTurma1);
+                    if (turma1 != null) {
+                        Date data = new Date();
+                        turma1.chamada(data);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Turma não encontrada.");
+                    }
+                    break;
+
 
                 default:
                     break;
