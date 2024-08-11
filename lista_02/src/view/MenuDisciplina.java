@@ -23,15 +23,15 @@ public class MenuDisciplina {
         return null;
     }
 
-    private static String lerAreaAtuacao() {
+    public static String lerAreaAtuacao() {
         return JOptionPane.showInputDialog("Informe a area de atuação da disciplina: ");
     }
 
-    private static String lerCodigoDisciplina() {
+    public static String lerCodigoDisciplina() {
         return JOptionPane.showInputDialog("Informe o código da disciplina: ");
     }
 
-    private static String lerNomeDisciplina() {
+    public static String lerNomeDisciplina() {
         return JOptionPane.showInputDialog("Informe o nome da disciplina: ");
     }
 

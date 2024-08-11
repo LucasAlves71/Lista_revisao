@@ -25,23 +25,23 @@ public class MenuProfessor {
         return null;
     }
 
-    private static String lerAreaFormacao() {
+    public static String lerAreaFormacao() {
         return JOptionPane.showInputDialog("Informe o area de formação do profesor: ");
     }
 
-    private static String lerEmail() {
+    public static String lerEmail() {
         return JOptionPane.showInputDialog("Informe o email do professor: ");
     }
 
-    private static String lerCPF() {
+    public static String lerCPF() {
         return JOptionPane.showInputDialog("Informe o CPF do professor: ");
     }
 
-    private static String lerNome() {
+    public static String lerNome() {
         return JOptionPane.showInputDialog("Informe o nome do professor: ");
     }
 
-    private static String lerMatriculaFUB() {
+    public static String lerMatriculaFUB() {
         return JOptionPane.showInputDialog("Informe a matricula do professor: ");
     }
 

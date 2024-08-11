@@ -3,9 +3,9 @@ package app;
 import exceptions.CampoEmBrancoException;
 
 public class Disciplina {
-    String  codigoDisciplina,
-            nomeDisciplina,
-            areaAtuacao;
+    private String  codigoDisciplina;
+    private String  nomeDisciplina;
+    private String  areaAtuacao;
 
     public Disciplina(String codigoDisciplina, String nomeDisciplina, String areaAtuacao) {
         this.codigoDisciplina = codigoDisciplina;

@@ -32,11 +32,11 @@ public class MenuTurma {
         return null;
     }
 
-    private static String lerNumDaTurma() {
+    public static String lerNumDaTurma() {
         return JOptionPane.showInputDialog("Informe o número da turma: ");
     }
 
-    private static Professor selecionarProfessor(CadastroProfessores cadProfessor) {
+    public static Professor selecionarProfessor(CadastroProfessores cadProfessor) {
         String matProfessor = JOptionPane.showInputDialog("Informe o matrícula do professor: ");
         Professor professor = cadProfessor.pesquisarProfessor(matProfessor);
         if (professor == null) {
@@ -45,7 +45,7 @@ public class MenuTurma {
         return professor;
     }
 
-    private static Disciplina selecionarDisciplina(CadastroDisciplina cadDisciplina) {
+    public static Disciplina selecionarDisciplina(CadastroDisciplina cadDisciplina) {
         String codigoDisciplina = JOptionPane.showInputDialog("Informe o código da disciplina: ");
         Disciplina disciplina = cadDisciplina.pesquisarDisciplina(codigoDisciplina);
         if (disciplina == null) {

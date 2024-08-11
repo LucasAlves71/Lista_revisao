@@ -4,8 +4,8 @@ import exceptions.CampoEmBrancoException;
 
 public class Aluno extends PessoaFisica{
 
-    String matricula,
-            curso;
+    private String matricula;
+    private String curso;
 
     public Aluno(String nome, String cpf, String email, String matricula, String curso) {
         super(nome, cpf, email);
@@ -44,6 +44,10 @@ public class Aluno extends PessoaFisica{
     public final String getCurso() {
         return curso;
     }
+    
+    protected void finalize() throws Throwable {
+		System.out.println("Destruindo objeto: " + this);
+	}
 
 
     public String toString() {

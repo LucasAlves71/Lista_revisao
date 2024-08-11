@@ -6,7 +6,7 @@ import java.util.List;
 import app.Professor;
 
 public class CadastroProfessores {
-	int numProfessores; 
+	private int numProfessores; 
 	private List<Professor> professores;
 	
 	public CadastroProfessores() {
